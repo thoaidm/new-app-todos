@@ -17,8 +17,9 @@ class CreateTodosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
-            $table->boolean('completed');
+            $table->boolean('activated');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
