@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TodosController extends Controller
 {
@@ -65,25 +64,6 @@ class TodosController extends Controller
     public function show($todosID)
     {
         return view('todos.show')->with('todo', Todo::find($todosID));
-    }
-
-    // soft delete
-    public function showDeleted(Todo $todo)
-    {
-        // $todo = Todo::find($todoId);
-        // $todo->delete();
-
-        // if ($todo->trashed()) {
-        //     $todo = Todo::onlyTrashed()->get();
-        // return view('todo.deleted', compact('name'));
-        // }
-
-        // $todo = Todo::find($todo);
-        // $todo->delete();
-        $todo = Todo::onlyTrashed()->get();
-        return view('todos.deleted', compact('todo', $todo));
-        // return view('provinces.deleted', compact(''));
-
     }
 
     /**
@@ -149,28 +129,5 @@ class TodosController extends Controller
     session()->flash('success', 'Todo completed successfully.');
 
     return redirect('/todos');
-    }
-
-    public function fdestroy($id)
-    {
-        //Todo::withTrashed()->findOrFail($id)->first()->destroy();
-        $delete = Todo::onlyTrashed()->find($id);
-        $delete->forceDelete();
-        //Todo::forceDeleted($id);
-        //todo_delete->destroy();
-
-        //return view('todos.deleted');
-        //return ($todo_delete);
-        return redirect()->route('todo.deleted')->with('success', 'Todo forcedeleted successfully');
-        //return view('todos.deleted', compact('todo', $id));
-        //);
-    }
-
-    public function restore($id)
-    {
-        $unDelete = Todo::onlyTrashed()->find($id);
-        $unDelete->restore();
-        return redirect('/todos')->with('success', 'Todo restored successfully');
-
     }
 }
