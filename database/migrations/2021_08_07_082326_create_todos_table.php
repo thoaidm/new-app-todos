@@ -19,6 +19,7 @@ class CreateTodosTable extends Migration
             $table->text('description');
             $table->boolean('completed');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

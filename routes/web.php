@@ -25,6 +25,9 @@ Route::post('store-todos', [TodosController::class, 'store'])->name('todos.store
 Route::get('/todos/{todo}/edit', [TodosController::class, 'edit']);
 Route::post('/todos/{todo}/update-todos', [TodosController::class, 'update']);
 Route::get('/todos/{todo}/delete', [TodosController::class, 'destroy']);
+Route::get('delete-todos', [TodosController::class, 'showDeleted'])->name('todo.deleted');
+Route::get('todos/{todo}/fdestroy', [TodosController::class, 'fdestroy']);
+Route::get('todos/{todo}/restore', [TodosController::class, 'restore']);
 Route::get('todos/{todo}/complete', [TodosController::class, 'complete']);
 
 
